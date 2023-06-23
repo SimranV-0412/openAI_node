@@ -1,0 +1,174 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+  <title>Chat Page</title>
+</head>
+<body>
+  <h1>Chat Page</h1>
+  <form id="chatForm">
+    <textarea id="userInput" rows="5" cols="50" placeholder="Type your message here"></textarea><br><br>
+    <button type="submit">Send</button>
+  </form>
+
+  <div id="chatMessages"></div>
+
+  <script>
+    const chatForm = document.getElementById("chatForm");
+    const userInput = document.getElementById("userInput");
+    const chatMessages = document.getElementById("chatMessages");
+
+    chatForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const message = userInput.value;
+      if (message.trim() === "") {
+        return;
+      }
+
+      const response = await fetch("/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userInput: message }),
+      });
+
+      if (response.ok) {
+        const completionText = await response.text();
+        displayMessage("user", message);
+        displayMessage("assistant", completionText);
+      } else {
+        console.error("An error occurred during chat.");
+      }
+
+      userInput.value = "";
+    });
+
+    function displayMessage(role, content) {
+      const messageElement = document.createElement("div");
+      messageElement.classList.add(role);
+      messageElement.textContent = content;
+      chatMessages.appendChild(messageElement);
+    }
+  </script>
+</body>
+</html>
+ -->
+
+
+ <!DOCTYPE html>
+<html>
+<head>
+  <title>Chat Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    #chatForm {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    #userInput {
+      width: 300px;
+      height: 100px;
+      resize: none;
+    }
+
+    button[type="submit"] {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #45a049;
+    }
+
+    #chatMessages {
+      border: 1px solid #ccc;
+      padding: 10px;
+      width: 300px;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .user {
+      background-color: #f2f2f2;
+      padding: 5px;
+      margin-bottom: 10px;
+    }
+
+    .assistant {
+      background-color: #dcdcdc;
+      padding: 5px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Chat Page</h1>
+  <form id="chatForm">
+    <textarea id="userInput" rows="5" placeholder="Type your message here"></textarea>
+    <button type="submit">Send</button>
+  </form>
+
+  <div id="chatMessages"></div>
+
+  <script>
+    const chatForm = document.getElementById("chatForm");
+    const userInput = document.getElementById("userInput");
+    const chatMessages = document.getElementById("chatMessages");
+
+    chatForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const message = userInput.value;
+      if (message.trim() === "") {
+        return;
+      }
+
+      const response = await fetch("/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userInput: message }),
+      });
+
+      if (response.ok) {
+        const completionText = await response.text();
+        displayMessage("user", message);
+        displayMessage("assistant", completionText);
+      } else {
+        console.error("An error occurred during chat.");
+      }
+
+      userInput.value = "";
+    });
+
+    function displayMessage(role, content) {
+      const messageElement = document.createElement("div");
+      messageElement.classList.add(role);
+      messageElement.textContent = content;
+      chatMessages.appendChild(messageElement);
+    }
+  </script>
+</body>
+</html>
